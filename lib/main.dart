@@ -49,9 +49,10 @@ class MyHomePage extends StatelessWidget {
               elevation: 5, // control shadow effect
             ),
           ),
-          Card(
-            color: Colors.red,
-            child: Text('LIST OF TX!'),
+          Column(
+            children: transaction.map((tx) {
+              return Card(child: Text(tx.title),);
+            }).toList(),
           ),
         ],
       ),
