@@ -39,17 +39,41 @@ class MyHomePage extends StatelessWidget {
         title: Text('Flutter App'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.stretch, // now column will take all the width and there child also
         children: <Widget>[
           Container(
-            width: double.infinity,
             child: Card(
               color: Colors.blue,
               child: Text('CHART!'),
               elevation: 5, // control shadow effect
             ),
           ),
+          Card(
+            elevation: 5,
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Title',
+                    ),
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Amount',
+                    ),
+                  ),
+                  FlatButton(
+                    textColor: Colors.purple,
+                    onPressed: () {}, 
+                    child: Text('Add Transaction'),
+                  )
+                ],
+              ),
+            ),
+          ),  
           Column(     // we don't use ... because we make list from class it's already a copy
             children: transaction.map((tx) {
               return Card(
