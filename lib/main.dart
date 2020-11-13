@@ -49,9 +49,26 @@ class MyHomePage extends StatelessWidget {
               elevation: 5, // control shadow effect
             ),
           ),
-          Column(
+          Column(     // we don't use ... because we make list from class it's already a copy
             children: transaction.map((tx) {
-              return Card(child: Text(tx.title),);
+              return Card(
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        child: Text(
+                            tx.amount.toString(),
+                          ),
+                      ),
+                      Column(children: <Widget>[
+                          Text(tx.title),
+                          Text(
+                            tx.date.toString(),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
             }).toList(),
           ),
         ],
