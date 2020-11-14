@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './widgets/transaction_list.dart';
+import './widgets/chart.dart';
 import './widgets/new_transaction.dart';
 import './models/transaction.dart';
 
@@ -59,6 +60,20 @@ class _MyHomePageState extends State<MyHomePage> {
     // ),
   ];
 
+  // this list we generate for passing the recent transactions
+  List<Transaction> get _recentTransactions {
+            // where method will use on list if true is return then element is kept otherwise not
+    return _userTransactions.where((tx) {
+      // so here we return date only of last 7 days
+      // isAfter means return the date only after the date inside given
+      return tx.date.isAfter( 
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ), 
+      );
+    }).toList(); // where will give us iterable back that's why we convert it to list
+  }
+
   void _addNewTransaction(String txTitle, double txAmount) {
     final newTx = Transaction(
       title: txTitle, 
@@ -96,13 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch, // now column will take all the width and there child also
           children: <Widget>[
-            Container(
-              child: Card(
-                color: Colors.blue,
-                child: Text('CHART!'),
-                elevation: 5, // control shadow effect
-              ),
-            ),
+            Chart(_recentTransactions),
             TransactionList(_userTransactions),
           ],
         ),

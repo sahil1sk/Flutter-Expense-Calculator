@@ -29,7 +29,7 @@ class Chart extends StatelessWidget {
       }
       
       // DateFormat.E this will give shortcut for weekday
-      return {'day': DateFormat.E(weekDay), 'amount': totalSum};
+      return {'day': DateFormat.E().format(weekDay), 'amount': totalSum};
     });
   }
   
