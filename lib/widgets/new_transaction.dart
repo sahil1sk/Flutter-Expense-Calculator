@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
 
-class NewTransaction extends StatelessWidget {
+class NewTransaction extends StatefulWidget {
   final Function addTx;
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
-
+ 
   NewTransaction(this.addTx);
+
+  @override
+  _NewTransactionState createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
+  final titleController = TextEditingController();
+
+  final amountController = TextEditingController();
 
   void submitData() {
     final enteredTitle = titleController.text;
     final enteredAmount = double.parse(amountController.text);
 
     if(enteredTitle.isEmpty || enteredAmount <= 0) return;
-    addTx(enteredTitle, enteredAmount); // calling function and setting data into list
+    // widget.addTx helps to call the pointer which is at its widget class means in NewTransaction class
+    widget.addTx(enteredTitle, enteredAmount); // calling function and setting data into list
+    // the given line will help to turn of the top most screen 
+    // we used here to disable modal 
+    Navigator.of(context).pop(); // context auto available
   }
 
   @override
