@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple, //primarySwatch helps to generate number of shades like for primary color which is used by other widgets 
         fontFamily: 'QuickSand',
+        errorColor: Colors.red,
         textTheme: ThemeData.light().textTheme.copyWith(
           title: TextStyle(
             fontFamily: 'OpenSans',
@@ -88,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-
+  // for adding new transaction
   void _startAddNewTransaction(BuildContext ctx) {
     // passing the context and builders argument has it's own context
     // this is the built in funtion to showing the bottom sheet
@@ -96,6 +97,14 @@ class _MyHomePageState extends State<MyHomePage> {
       return NewTransaction(_addNewTransaction); // passing the widget which we want to show in the bottom sheet
     },);
   }
+
+  // for deleteing transaction
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransactions.removeWhere((tx) => tx.id == id);
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch, // now column will take all the width and there child also
           children: <Widget>[
             Chart(_recentTransactions),
-            TransactionList(_userTransactions),
+            TransactionList(_userTransactions, _deleteTransaction),
           ],
         ),
       ),
