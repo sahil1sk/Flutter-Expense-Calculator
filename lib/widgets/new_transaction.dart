@@ -16,12 +16,13 @@ class _NewTransactionState extends State<NewTransaction> {
   DateTime _selectedDate; // type of DateTime
 
   void _submitData() {
+    if(_amountController.text.isEmpty) return; // if amount is not there then also return  becasue we don't want to do conversion
     final enteredTitle = _titleController.text;
     final enteredAmount = double.parse(_amountController.text);
 
-    if(enteredTitle.isEmpty || enteredAmount <= 0) return;
+    if(enteredTitle.isEmpty || enteredAmount <= 0 || _selectedDate == null) return;
     // widget.addTx helps to call the pointer which is at its widget class means in NewTransaction class
-    widget.addTx(enteredTitle, enteredAmount); // calling function and setting data into list
+    widget.addTx(enteredTitle, enteredAmount, _selectedDate); // calling function and setting data into list
     // the given line will help to turn of the top most screen 
     // we used here to disable modal 
     Navigator.of(context).pop(); // context auto available

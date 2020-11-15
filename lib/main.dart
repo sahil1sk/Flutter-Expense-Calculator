@@ -75,11 +75,11 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList(); // where will give us iterable back that's why we convert it to list
   }
 
-  void _addNewTransaction(String txTitle, double txAmount) {
+  void _addNewTransaction(String txTitle, double txAmount, DateTime choosenDate) {
     final newTx = Transaction(
       title: txTitle, 
       amount: txAmount, 
-      date: DateTime.now(), 
+      date: choosenDate, 
       id: DateTime.now().toString()
     ); 
 
