@@ -46,8 +46,27 @@ class _NewTransactionState extends State<NewTransaction> {
               keyboardType: TextInputType.number, //In IOS numberWithOptions(decimal:true),
               onSubmitted: (_) => submitData(),
             ),
-            FlatButton(
-              textColor: Colors.purple,
+            Container(
+              height: 70,
+              child: Row(
+                children: <Widget>[
+                  Text('No Date Chosen!'),
+                  FlatButton(
+                    onPressed: () {
+
+                    }, 
+                    child: Text(
+                      'Choose Date',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    textColor: Theme.of(context).primaryColor,
+                  ),
+                ],
+              ),
+            ),
+            RaisedButton(
+              color: Theme.of(context).primaryColor, // getting the primary color from the theme
+              textColor: Theme.of(context).textTheme.button.color, // getting the color from the app theme which we set in main.dart file
               onPressed: submitData,
               child: Text('Add Transaction'),
             )
