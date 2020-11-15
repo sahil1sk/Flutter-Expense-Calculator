@@ -91,8 +91,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _startAddNewTransaction(BuildContext ctx) {
     // passing the context and builders argument has it's own context
+    // this is the built in funtion to showing the bottom sheet
     showModalBottomSheet(context: ctx, builder: (bCtx) {
-      return NewTransaction(_addNewTransaction);
+      return NewTransaction(_addNewTransaction); // passing the widget which we want to show in the bottom sheet
     },);
   }
 
