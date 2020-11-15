@@ -14,8 +14,11 @@ class ChartBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        FittedBox( // means the data will be set into it's our box only srink the size if the number is large not go to another line
-          child: Text('\$${spendingAmount.toStringAsFixed(0)}')
+        Container(
+          height: 20, // height will remain 20 everytime
+          child: FittedBox( // means the data will be set into it's our box only srink the size if the number is large not go to another line
+            child: Text('\$${spendingAmount.toStringAsFixed(0)}')
+          ),
         ),
         SizedBox(height: 4),  // for spacing of 4px
         Container(
