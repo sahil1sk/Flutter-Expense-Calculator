@@ -32,45 +32,29 @@ class TransactionList extends StatelessWidget {
       ) : ListView.builder(
         itemBuilder: (ctx, index) {
           return Card(
-            child: Row(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.symmetric(
-                    vertical: 10, 
-                    horizontal: 10
+            margin: EdgeInsets.symmetric(
+              vertical:8,
+              horizontal: 5
+            ),
+            elevation: 5,
+            child: ListTile( // helps to make easy styled element
+              leading: CircleAvatar( // leading is the first part
+                  radius: 30,
+                  child: Padding(
+                    padding: const EdgeInsets.all(6),
+                    child: FittedBox( // means the data will be set into it's our box only srink the size if the number is large not go to another line
+                      child: Text('\$${transactions[index].amount}'),
+                    ),
                   ),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                        color: Theme.of(context).primaryColor, // getting the primary color
-                        width: 2,
-                      ),
-                  ),
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                      '\$${transactions[index].amount.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Theme.of(context).primaryColor, // setting the color which we define in the theme
-                      ),
-                    ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      transactions[index].title,
-                      style: Theme.of(context).textTheme.title, // setting the style of title which we define in app theme
-                    ),
-                    Text(
-                      DateFormat.yMMMd().format(transactions[index].date),
-                      style: TextStyle(
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              title: Text( // setting the title
+                transactions[index].title,
+                style: Theme.of(context).textTheme.title, // setting the style of text which we configure at theme
+              ),
+              subtitle: Text( // helps to set the subtitle
+                DateFormat.yMMMd().format(transactions[index].date),
+              ),
+              
             ),
           );
         },     
