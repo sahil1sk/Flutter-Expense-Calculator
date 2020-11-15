@@ -1,7 +1,7 @@
-import 'package:building_real_app/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // this package is for DateFormat
 
+import './chart_bar.dart';
 import '../models/transaction.dart';
 
 class Chart extends StatelessWidget {
@@ -35,15 +35,28 @@ class Chart extends StatelessWidget {
       };
     });
   }
+
+
+  // getting the total spending of the week
+  double get totalSpending {
+    // fold funtion like reduce funtion of javascript
+    return groupedTransactionValues.fold(0.0, (sum, item) {
+      return sum + item['amount'];
+    });
+  }
   
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(20),
-      child: Row(children: groupedTransactionValues.map(
-          (data) {
-            return Text('${data['day']}:${data['amount']}');
+      child: Row(
+        children: groupedTransactionValues.map((data) {   
+            return ChartBar(
+              data['day'], 
+              data['amount'],   // if toalSpending is 0 then pass 0 no need to divide by zero
+              totalSpending == 0.0 ? 0.0 : (data['amount'] as double) / totalSpending //// getting the percentage of day amount from the total spending
+            );
           }
         ).toList(),
       ),
