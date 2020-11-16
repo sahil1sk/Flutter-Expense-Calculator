@@ -55,7 +55,14 @@ class TransactionList extends StatelessWidget {
             subtitle: Text( // helps to set the subtitle
               DateFormat.yMMMd().format(transactions[index].date),
             ), // trailing will help to show the last side element like leading showing first
-            trailing: IconButton(
+            trailing: MediaQuery.of(context).size.width > 460 ? 
+            FlatButton.icon(
+              onPressed: () => deleteTx(transactions[index].id), 
+              icon: Icon(Icons.delete), 
+              label: Text('Delete'),
+              textColor: Theme.of(context).errorColor,
+            )
+            :IconButton(
               icon: Icon(Icons.delete),
               color: Theme.of(context).errorColor, // getting the error color from the theme
               onPressed: () => deleteTx(transactions[index].id),
