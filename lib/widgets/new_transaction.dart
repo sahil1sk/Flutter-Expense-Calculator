@@ -50,50 +50,57 @@ class _NewTransactionState extends State<NewTransaction> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            TextField(
-              decoration: InputDecoration(labelText: 'Title'),
-              controller: _titleController,
-              onSubmitted: (_) => _submitData(),
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: 'Amount'),
-              controller: _amountController,
-              keyboardType: TextInputType.number, //In IOS numberWithOptions(decimal:true),
-              onSubmitted: (_) => _submitData(), // so we dont' want to use value then use _ 
-            ),
-            Container(
-              height: 70,
-              child: Row(
-                children: <Widget>[
-                  Expanded( // this will take as much space available
-                    child: Text(_selectedDate == null 
-                      ? 'No Date Chosen!' 
-                      : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
-                    ),
-                  ),
-                  FlatButton(
-                    onPressed: _presentDatePicker, // this function will help to show the date picker
-                    child: Text(
-                      'Choose Date',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    textColor: Theme.of(context).primaryColor,
-                  ),
-                ],
+      child: SingleChildScrollView( // we set that when the padding is added then the list will become scrollable bcause built in bottom sheet have configured size
+        child: Container(
+          padding: EdgeInsets.only(
+            top: 10, 
+            left: 10, 
+            right: 10, 
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10, // viewInsets.bottom adding for when keyboard will appear 
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              TextField(
+                decoration: InputDecoration(labelText: 'Title'),
+                controller: _titleController,
+                onSubmitted: (_) => _submitData(),
               ),
-            ),
-            RaisedButton(
-              color: Theme.of(context).primaryColor, // getting the primary color from the theme
-              textColor: Theme.of(context).textTheme.button.color, // getting the color from the app theme which we set in main.dart file
-              onPressed: _submitData,
-              child: Text('Add Transaction'),
-            )
-          ],
+              TextField(
+                decoration: InputDecoration(labelText: 'Amount'),
+                controller: _amountController,
+                keyboardType: TextInputType.number, //In IOS numberWithOptions(decimal:true),
+                onSubmitted: (_) => _submitData(), // so we dont' want to use value then use _ 
+              ),
+              Container(
+                height: 70,
+                child: Row(
+                  children: <Widget>[
+                    Expanded( // this will take as much space available
+                      child: Text(_selectedDate == null 
+                        ? 'No Date Chosen!' 
+                        : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
+                      ),
+                    ),
+                    FlatButton(
+                      onPressed: _presentDatePicker, // this function will help to show the date picker
+                      child: Text(
+                        'Choose Date',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      textColor: Theme.of(context).primaryColor,
+                    ),
+                  ],
+                ),
+              ),
+              RaisedButton(
+                color: Theme.of(context).primaryColor, // getting the primary color from the theme
+                textColor: Theme.of(context).textTheme.button.color, // getting the color from the app theme which we set in main.dart file
+                onPressed: _submitData,
+                child: Text('Add Transaction'),
+              )
+            ],
+          ),
         ),
       ),
     );
