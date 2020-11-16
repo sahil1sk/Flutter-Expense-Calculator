@@ -138,10 +138,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             _showChart // if true then we will show chart otherwise list 
-            ? Container(  // getting the 30% of height and deducting the appBar height and top padding
+            ? Container(  // getting the 70% of height and deducting the appBar height and top padding
                 height: ( MediaQuery.of(context).size.height - 
                           appBar.preferredSize.height - 
-                          MediaQuery.of(context).padding.top ) * 0.3,
+                          MediaQuery.of(context).padding.top ) * 0.7,
                 child: Chart(_recentTransactions),
               )
             : Container( // getting the 70% of height and deducting the appBar height and top padding
