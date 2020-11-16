@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // we import for using SystemChrome
+//import 'package:flutter/services.dart'; // we import for using SystemChrome
 
 import './widgets/transaction_list.dart';
 import './widgets/chart.dart';
@@ -7,12 +7,12 @@ import './widgets/new_transaction.dart';
 import './models/transaction.dart';
 
 void main() { 
-  WidgetsFlutterBinding.ensureInitialized(); // for lates version we need to confine this before using given setting
-  // so here in this we allow on portraitUp and portraitDown setting not allowing landscape setting
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  // WidgetsFlutterBinding.ensureInitialized(); // for lates version we need to confine this before using given setting
+  // // so here in this we allow on portraitUp and portraitDown setting not allowing landscape setting
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  //   DeviceOrientation.portraitDown,
+  // ]);
   runApp(MyApp());
 }
 
@@ -57,6 +57,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   final List<Transaction> _userTransactions = [];
+  bool _showChart = false;
 
   // this list we generate for passing the recent transactions
   List<Transaction> get _recentTransactions {
@@ -122,18 +123,33 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch, // now column will take all the width and there child also
           children: <Widget>[
-            Container(  // getting the 30% of height and deducting the appBar height and top padding
-              height: ( MediaQuery.of(context).size.height - 
-                        appBar.preferredSize.height - 
-                        MediaQuery.of(context).padding.top ) * 0.3,
-              child: Chart(_recentTransactions),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center, // center all the content inside the row
+                children: <Widget>[
+                  Text('Show Chart'),
+                  Switch(
+                    value: _showChart,
+                    onChanged: (val) {
+                      setState(() {
+                        _showChart = val;
+                      });
+                    },
+                  ),
+              ],
             ),
-            Container( // getting the 70% of height and deducting the appBar height and top padding
-              height: ( MediaQuery.of(context).size.height - 
-                        appBar.preferredSize.height - 
-                        MediaQuery.of(context).padding.top ) * 0.7,
-              child: TransactionList(_userTransactions, _deleteTransaction),
-            ),
+            _showChart // if true then we will show chart otherwise list 
+            ? Container(  // getting the 30% of height and deducting the appBar height and top padding
+                height: ( MediaQuery.of(context).size.height - 
+                          appBar.preferredSize.height - 
+                          MediaQuery.of(context).padding.top ) * 0.3,
+                child: Chart(_recentTransactions),
+              )
+            : Container( // getting the 70% of height and deducting the appBar height and top padding
+                height: ( MediaQuery.of(context).size.height - 
+                          appBar.preferredSize.height - 
+                          MediaQuery.of(context).padding.top ) * 0.7,
+                child: TransactionList(_userTransactions, _deleteTransaction),
+              ),
           ],
         ),
       ),
