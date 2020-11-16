@@ -113,16 +113,16 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch, // now column will take all the width and there child also
           children: <Widget>[
-            Container(  // getting the 40% of height and deducting the appBar height and top padding
+            Container(  // getting the 30% of height and deducting the appBar height and top padding
               height: ( MediaQuery.of(context).size.height - 
                         appBar.preferredSize.height - 
-                        MediaQuery.of(context).padding.top ) * 0.4,
+                        MediaQuery.of(context).padding.top ) * 0.3,
               child: Chart(_recentTransactions),
             ),
-            Container( // getting the 60% of height and deducting the appBar height and top padding
+            Container( // getting the 70% of height and deducting the appBar height and top padding
               height: ( MediaQuery.of(context).size.height - 
                         appBar.preferredSize.height - 
-                        MediaQuery.of(context).padding.top ) * 0.6,
+                        MediaQuery.of(context).padding.top ) * 0.7,
               child: TransactionList(_userTransactions, _deleteTransaction),
             ),
           ],
