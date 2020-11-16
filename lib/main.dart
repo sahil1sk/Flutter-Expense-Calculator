@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // we import for using SystemChrome
 
 import './widgets/transaction_list.dart';
 import './widgets/chart.dart';
 import './widgets/new_transaction.dart';
 import './models/transaction.dart';
 
-void main() => runApp(MyApp());
+void main() { 
+  WidgetsFlutterBinding.ensureInitialized(); // for lates version we need to confine this before using given setting
+  // so here in this we allow on portraitUp and portraitDown setting not allowing landscape setting
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
