@@ -4,16 +4,44 @@ import 'package:intl/intl.dart';
 class NewTransaction extends StatefulWidget {
   final Function addTx;
  
-  NewTransaction(this.addTx);
+  NewTransaction(this.addTx) {
+    print('Constructor function is called!');
+  }
 
   @override
-  _NewTransactionState createState() => _NewTransactionState();
+  _NewTransactionState createState() { 
+    print('createState funtion is called!');
+    return _NewTransactionState();
+  }
 }
 
 class _NewTransactionState extends State<NewTransaction> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   DateTime _selectedDate; // type of DateTime
+
+  _NewTransactionState() {
+    print('Construction of State is called');
+  }
+
+  @override   // initState method is provided by the State
+  void initState() { // initState funtion will called once one the state is created
+    super.initState(); // so here we call the State initState funtion
+    print('initState() is called');
+  }
+
+  // this function is called whenever there is change in the parent widget
+  @override // method provide by the state
+  void didUpdateWidget(covariant NewTransaction oldWidget) {
+    super.didUpdateWidget(oldWidget); // calling the method in the state class
+    print('didUpdateWidget() is called');
+  }
+
+  @override
+  void dispose() { // this function is called when the widget is removed
+    super.dispose();
+    print('dispose funtion is called');
+  }
 
   void _submitData() {
     if(_amountController.text.isEmpty) return; // if amount is not there then also return  becasue we don't want to do conversion
