@@ -54,10 +54,31 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-
+// extending WidgetsBindingObserver class helps to use didChangeAppLifecycleState                                 
+// with is a mixin which will help to extend anther class
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   final List<Transaction> _userTransactions = [];
   bool _showChart = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // the given line will help to call the didChangeAppLifecycle State when ever there is change in the lifecycle of the app
+    WidgetsBinding.instance.addObserver(this); 
+  }
+
+  @override // this function is called whenever the app life cycle is changing
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // when your app is going into the ram or you press home then you will see in you debug all the state
+    print(state); // so print will show the app in which state now
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+    // using given line we remove the lifecycle  listener so that there is no memory likage take place 
+    WidgetsBinding.instance.removeObserver(this);
+  }
 
   // this list we generate for passing the recent transactions
   List<Transaction> get _recentTransactions {
