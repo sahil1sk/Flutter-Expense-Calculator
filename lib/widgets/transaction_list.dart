@@ -7,10 +7,12 @@ class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
   final Function deleteTx;
 
-  TransactionList(this.transactions, this.deleteTx);
+  // we use const constructors but it is only applicable to constructor if we use final 
+  // by using the const once the constructor will get the value it will not rebuild again when the build method is called 
+  const TransactionList(this.transactions, this.deleteTx);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {                    // context and constraints
     return transactions.isEmpty ? LayoutBuilder(builder: (ctx, constraints){
       return Column(
         children: <Widget>[
@@ -31,7 +33,7 @@ class TransactionList extends StatelessWidget {
         ],
       );
     },) : ListView.builder(
-      itemBuilder: (ctx, index) {
+      itemBuilder: (ctx, index) { // context and index
         return Card(
           margin: EdgeInsets.symmetric(
             vertical:8,
@@ -58,8 +60,8 @@ class TransactionList extends StatelessWidget {
             trailing: MediaQuery.of(context).size.width > 460 ? 
             FlatButton.icon(
               onPressed: () => deleteTx(transactions[index].id), 
-              icon: Icon(Icons.delete), 
-              label: Text('Delete'),
+              icon: const Icon(Icons.delete), // use const if widget remain same so that it will not rebuild again when the build method is called
+              label: const Text('Delete'),
               textColor: Theme.of(context).errorColor,
             )
             :IconButton(
