@@ -102,6 +102,42 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  List<Widget> _buildLandscapeContent(MediaQueryData mediaQuery, AppBar appBar, Widget txListWidget) {
+    return [Row(
+        mainAxisAlignment: MainAxisAlignment.center, // center all the content inside the row
+        children: <Widget>[
+          Text('Show Chart'),
+          Switch(
+            value: _showChart,
+            onChanged: (val) {
+              setState(() {
+                _showChart = val;
+              });
+            },
+          ),
+      ],
+    ),
+    _showChart // if true then we will show chart otherwise list 
+      ? Container(  // getting the 70% of height and deducting the appBar height and top padding
+          height: ( mediaQuery.size.height - 
+                    appBar.preferredSize.height - 
+                    mediaQuery.padding.top ) * 0.7,
+          child: Chart(_recentTransactions),
+        )
+      : txListWidget
+    ];
+  }
+
+  // List<Widget> return type returning list of widgets
+  List<Widget> _buildPortraitContent(MediaQueryData mediaQuery, AppBar appBar, Widget txListWidget) {
+    return [Container(  // getting the 70% of height and deducting the appBar height and top padding
+                height: ( mediaQuery.size.height - 
+                          appBar.preferredSize.height - 
+                          mediaQuery.padding.top ) * 0.3,
+                child: Chart(_recentTransactions),
+              ),
+              txListWidget];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,40 +165,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: appBar,
-      body: SingleChildScrollView(
+      body: SingleChildScrollView( // for giving the scroll effect 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch, // now column will take all the width and there child also
           children: <Widget>[
-            if (isLandscape) Row(
-                mainAxisAlignment: MainAxisAlignment.center, // center all the content inside the row
-                children: <Widget>[
-                  Text('Show Chart'),
-                  Switch(
-                    value: _showChart,
-                    onChanged: (val) {
-                      setState(() {
-                        _showChart = val;
-                      });
-                    },
-                  ),
-              ],
-            ),
-            if(!isLandscape)
-              Container(  // getting the 70% of height and deducting the appBar height and top padding
-                height: ( mediaQuery.size.height - 
-                          appBar.preferredSize.height - 
-                          mediaQuery.padding.top ) * 0.3,
-                child: Chart(_recentTransactions),
-              ),
-            if(!isLandscape) txListWidget,
-            if(isLandscape) _showChart // if true then we will show chart otherwise list 
-              ? Container(  // getting the 70% of height and deducting the appBar height and top padding
-                  height: ( mediaQuery.size.height - 
-                            appBar.preferredSize.height - 
-                            mediaQuery.padding.top ) * 0.7,
-                  child: Chart(_recentTransactions),
-                )
-              : txListWidget
+            if (isLandscape) ..._buildLandscapeContent(mediaQuery, appBar, txListWidget),
+            if(!isLandscape) ..._buildPortraitContent(mediaQuery, appBar, txListWidget), // ... using this we tell flutter to pull list and merge single items as in our list
           ],
         ),
       ),
