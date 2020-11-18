@@ -32,11 +32,14 @@ class TransactionList extends StatelessWidget {
           ),
         ],
       );
-    },) : ListView.builder(
-      itemBuilder: (ctx, index) { // context and index
-        return TransactionItem(transaction: transactions[index], deleteTx: deleteTx);
-      },     
-      itemCount: transactions.length,
+    },) : ListView( // using keys with list view builder is not good that's why we are using normal List View
+      children: transactions.map((tx) {
+        return TransactionItem(
+          key: ValueKey(tx.id), // passing the unique key
+          transaction: tx, 
+          deleteTx: deleteTx
+        );
+      }).toList(),
     );
   }
 }

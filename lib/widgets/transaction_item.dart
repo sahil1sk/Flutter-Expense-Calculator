@@ -10,7 +10,7 @@ class TransactionItem extends StatefulWidget {
     Key key,
     @required this.transaction,
     @required this.deleteTx,
-  }) : super(key: key);
+  }) : super(key: key); // initatze the key to the parent
 
   final Transaction transaction;
   final Function deleteTx;
